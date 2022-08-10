@@ -1,0 +1,166 @@
+body{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin: 0px;
+}
+
+
+.leftpanel{
+    width: 100px;
+    background-color: aliceblue;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4em;
+    padding-top: 2em;
+    padding-bottom: 2em;
+    height: fit-content;
+}
+
+.rightpanel{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 2em;
+    gap: 1em;
+}
+
+.arch,
+.pend,
+.comp,
+.account {
+    display: flex;
+    flex-direction: column;
+}
+
+.arch, .pend, .comp, .account{
+    display: none;
+}
+
+.icon{
+    font-size: 2em;
+}
+
+.selected{
+    color: red;
+}
+
+.mod{
+    background-color: transparent;
+}
+
+
+.control{
+    display: flex;
+    gap: 20px;
+}
+
+.add{
+    /* align-self: flex-end; */
+    position: fixed;
+    margin: 2em;
+    align-self: flex-end;
+    float: right;
+
+}
+
+.dash{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.boards{
+    height: 70%;
+    gap: 2em;
+    display: grid;
+    grid-template-columns: auto auto;
+}
+
+.board{
+    width: 100%;
+    height: 200px;
+    border: 1px rgb(225, 225, 225) solid;
+    border-radius: 20px;
+}
+
+.board span{
+    padding-left: 1.5em;
+    padding-top: 2em;
+    display: inline-flex;
+    margin-top: auto;
+    margin-bottom: auto;
+    justify-content: center;
+    color: red;
+}
+
+.pend{
+    flex-direction: column;
+}
+
+#status{
+    opacity: 1;
+    height: 2em;
+    width: 2em;
+}
+
+.task{
+    display: flex;
+    flex-direction: row;
+    margin-top: 2em;
+    padding: 1.5em;
+    width: 100%;
+    gap: 3em;
+    justify-content: space-between;
+    /* border: 1px rgb(227, 227, 227) solid; */
+    /* box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px; */
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+._left{
+    display: flex;
+    flex-direction: row;
+    gap: 2em;
+}
+
+.cont{
+    display: flex;
+    flex-direction: row;
+    gap: 2em;
+}
+
+.tags{
+    display: flex;
+    flex-direction: row;
+    gap: 2em;
+}
+
+.tags #cat{
+    background-color: rgb(171, 255, 255);
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: small;
+    height: fit-content;
+    border-radius: 20px;
+}
+
+.tags #date{
+    background-color: rgb(255, 239, 217);
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: small;
+    height: fit-content;
+    border-radius: 20px;
+}
+
+
+
+
+
