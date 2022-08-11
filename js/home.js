@@ -2,7 +2,7 @@ jQuery(function(){
 
     $.get("http://localhost:3000/todo")
     .done((data) => {
-        showDash(data)
+        showDash(data);
         let completed = data.filter((x) => x.status == "done");
         let pending = data.filter((x) => x.status == "pending");
         let archived = data.filter((x) => x.status == "deleted");
@@ -25,7 +25,7 @@ jQuery(function(){
         console.log(data);
         for(let i=0; i< data.length; i++){
             $(".pend").append(
-              `<div class="task">
+              `<div class="task" >
                 <div class="_left">
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" value="" id="status">
@@ -48,7 +48,7 @@ jQuery(function(){
                             ${data[i].due_date}
                         </p>
                     </div>
-                    <div class="edit">
+                    <div class="edit" id="edit" data-id="${data[i]._id}" >
                         <i class="bi bi-pencil"></i>
                     </div>
                 </div>
@@ -83,7 +83,7 @@ jQuery(function(){
                             ${data[i].due_date}
                         </p>
                     </div>
-                    <div class="edit">
+                    <div class="edit" id="edit">
                         <i class="bi bi-pencil"></i>
                     </div>
                 </div>
@@ -118,7 +118,7 @@ jQuery(function(){
                             ${data[i].due_date}
                         </p>
                     </div>
-                    <div class="edit">
+                    <div class="edit" id="edit">
                         <i class="bi bi-pencil"></i>
                     </div>
                 </div>
@@ -126,6 +126,17 @@ jQuery(function(){
         );
       }
     }
+
+    $('body').on('click','#edit', function(){
+        console.log( $(this).data('id'))
+        // fetch all the datas from api using the above id
+        // populate the modal fields with the datas
+        // show the modal
+        $("#myUpdateModal").modal("show");
+        
+
+        // on user update then send the data to api
+    })
 
     $('#save').click(function(){
         const title = $('#title').val()
@@ -145,7 +156,10 @@ jQuery(function(){
         });
     })
 
+    $('')
 
+
+    const myUpdateModal = document.getElementById("myCreatemodal");
     const myModal = document.getElementById('mymodal')
     $('.add').click(function(){
         $('#myModal').modal('show')
