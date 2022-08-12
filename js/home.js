@@ -48,8 +48,9 @@ jQuery(function(){
                             ${data[i].due_date}
                         </p>
                     </div>
-                    <div class="edit" id="edit" data-id="${data[i]._id}" >
-                        <i class="bi bi-pencil"></i>
+                    <div class="edit" data-id="${data[i]._id}" >
+                        <i id="edit" class="bi bi-pencil"></i>
+                        <i id="delete" class="bi bi-trash"></i>
                     </div>
                 </div>
             </div>`
@@ -83,8 +84,9 @@ jQuery(function(){
                             ${data[i].due_date}
                         </p>
                     </div>
-                    <div class="edit" id="edit">
-                        <i class="bi bi-pencil"></i>
+                    <div class="edit" >
+                        <i id="edit" class="bi bi-pencil"></i>
+                        <i class="bi bi-trash"></i>
                     </div>
                 </div>
             </div>`
@@ -118,8 +120,8 @@ jQuery(function(){
                             ${data[i].due_date}
                         </p>
                     </div>
-                    <div class="edit" id="edit">
-                        <i class="bi bi-pencil"></i>
+                    <div class="edit">
+                        <i id="edit" class="bi bi-pencil"></i>
                     </div>
                 </div>
             </div>`
@@ -129,14 +131,69 @@ jQuery(function(){
 
     $('body').on('click','#edit', function(){
         console.log( $(this).data('id'))
+        let id = $(this).parent('.edit').data('id');
         // fetch all the datas from api using the above id
         // populate the modal fields with the datas
         // show the modal
         $("#myUpdateModal").modal("show");
-        
+        $.get(`http://localhost:3000/todo/${id}`).done(data => {
+            console.log(data);
+            $("#update_title").append(
+              `<input type="text" class="form-control" id="title" placeholder="Title" value="${data[0].title}">`
+            );
 
-        // on user update then send the data to api
+            $("#update_title").append(
+              `<label for="description" class="form-label">Description</label>
+              <textarea  class="form-control" id="description" rows="10" placeholder="Description">${data[0].description}</textarea>`
+            );
+
+            $(`#category option[value=${data[0].category}]`)
+              .prop("selected", true);
+
+            $("#update_date").append(
+              ` <label for="start">Due date:</label>
+                <input type="date" id="start" name="trip-start" value="${data[0].due_date}">`
+            );
+        })
     })
+
+    $('body').on('click','#update', function(){
+        const id = $('#edit').parent(".edit").data("id");
+        const title = $("#title").val();
+        const desc = $("#description").val();
+        const cat = $("#category option:selected").text();
+        const due = $("#start").val();
+
+        $.ajax("http://localhost:3000/todo", {
+            type : 'put',
+            data : {
+                _id : id,
+                title : title,
+                description : desc,
+                category : cat,
+                due_date : due
+            }
+        }).done(data => {
+            console.log('Updated');
+            $("#myUpdateModal").modal("hide");
+        })
+
+
+    })
+
+    $("body").on("click", "#delete", function () {
+        alert('were here')
+      const id = $("#delete").parent(".edit").data("id");
+        
+      $.ajax("http://localhost:3000/todo", {
+        type: "delete",
+        data: {
+          id: id,
+        },
+      }).done((data) => {
+        console.log("Deleted");
+      });
+    });
 
     $('#save').click(function(){
         const title = $('#title').val()
@@ -156,14 +213,12 @@ jQuery(function(){
         });
     })
 
-    $('')
 
 
     const myUpdateModal = document.getElementById("myCreatemodal");
     const myModal = document.getElementById('mymodal')
     $('.add').click(function(){
         $('#myModal').modal('show')
-
     })
 
     $('#pending').click(function (){
